@@ -1,0 +1,107 @@
+
+EXPENSES API:
+    AUTH
+        1) POST api/v1/auth/register    (fullname , phone number , password)    ✅
+        2) POST api/v1/auth/login       (phone number , password)   ✅
+
+    EXPENSES
+        3)  POST    api/v1/expenses     (price , category_id , description, type) ✅
+
+        201 response {
+                        "pk":1,
+                        "price":1000,
+                        "category":
+                            {
+                                "pk":1 ,
+                                "name":"Food",
+                                "type": "expense",
+                                "icon": "expense",
+                            }
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                      }
+
+        4)  DELETE  api/v1/expenses/<pk> ✅
+
+        200 response {
+                        "pk":1,
+                        "price":1000,
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                      }
+
+        5)  PUT     api/v1/expenses/<pk> ✅
+
+        200 response {
+                        "pk":1,
+                        "price":2000, # new value
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                      }
+
+        7)  GET     api/v1/expenses/<pk> ✅
+        200 response {
+                        "pk":1,
+                        "price":1000,
+                        "category":
+                            {
+                                "pk":1 ,
+                                "name":"Food",
+                                "type": "expense"
+                            }
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                      }
+
+        6)  GET     api/v1/expenses ✅
+
+        200 response [
+                        {
+                        "pk":1,
+                        "price":1000,
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                        },
+                        {
+                        "pk":2,
+                        "price":2000,
+                        "description":"long description ! Men uyga konstavar harid qildim"
+                        }
+                     ]
+
+        8)  GET     api/v1/expenses/balance ✅
+
+        200 response {
+                        total: 90
+									 income_sum : 90,
+									 expenses_sum: 10
+                     }
+
+        9)  GET     api/v1/category/<type> ✅
+        200 response [
+                        {
+                        "pk":1,
+                        "name":"",
+                        "description":"long description ! Men do'stlarimga bayram qilib berdim"
+                        },
+                        {
+                        "pk":2,
+                        "price":2000,
+                        "description":"long description ! Men uyga konstavar harid qildim"
+                        }
+                     ]
+
+    ADMIN
+        1)  POST    api/v1/admin/category ✅
+		200	response {
+                        "pk":1,
+                        "name":1000,
+                        "icon": «media»
+                      }
+        2)  PUT     api/v1/admin/category/<pk> ✅
+		200  response {
+                        "pk":1,
+                        "name":1000,
+                        "icon": «media»
+                      }
+        3)  DELETE  api/v1/admin/category/<pk> ✅
+		200  response {
+                        "pk":1,
+                        "name":1000,
+                        "icon": «media»
+                    }

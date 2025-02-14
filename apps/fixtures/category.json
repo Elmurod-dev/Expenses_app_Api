@@ -1,0 +1,20 @@
+[
+    {
+        "model": "apps.category",
+        "pk": 1,
+        "fields": {
+            "name": "Salary",
+            "icon": null,
+            "type": "income"
+        }
+    },
+    {
+        "model": "apps.category",
+        "pk": 2,
+        "fields": {
+            "name": "Food",
+            "icon": null,
+            "type": "expense"
+        }
+    }
+]
