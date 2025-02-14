@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-x!3_r%!3@5!zu-7hvo1(gbi_6#%9e4_qqc1va7%&0kg7j!(npr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = 'apps.User'
 
 # Application definition
@@ -140,3 +140,10 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bmurtozayev5@gmail.com'
+EMAIL_HOST_PASSWORD = 'xbqczqzyqbooypxm'
