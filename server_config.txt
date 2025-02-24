@@ -1,0 +1,121 @@
+project path : /var/www/elmurod/Expenses_app_Api
+
+-2) venv activate | pip install gunicorn
+
+-1) SETTINGS : STATIC_ROOT = os.path.join(BASE_DIR , "static")
+
+0) python manage.py collectstatic
+
+1)
+    nano /etc/nginx/sites-available/expense_api
+
+    server {
+        listen       8100;
+        server_name  176.57.214.64;
+
+        location = /favicon.ico { access_log off; log_not_found off; }
+
+        location /static/ {
+            root /var/www/elmurod/Expenses_app_Api;
+        }
+
+        location /media/ {
+            root /var/www/elmurod/Expenses_app_Api;
+        }
+
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/var/www/elmurod/Expenses_app_Api/falcon.sock;
+        }
+    }
+
+2)
+    ln -s /etc/nginx/sites-available/expense_api /etc/nginx/sites-enabled/
+
+
+3) nano /etc/systemd/system/expense_api.service
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/elmurod/Expenses_app_Api
+ExecStart=/var/www/elmurod/Expenses_app_Api/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/elmurod/Expenses_app_Api/falcon.sock root.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+3.1) nano /etc/systemd/system/expense_celery.service
+
+[Unit]
+Description=Celery Service
+After=network.target
+Requires=expense_api.service
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/elmurod/Expenses_app_Api
+ExecStart=/var/www/elmurod/Expenses_app_Api/.venv/bin/celery -A root worker --loglevel=info
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+4) systemctl enable expense_api.service
+5) systemctl start expense_api.service
+5) systemctl restart expense_api.service
+6) systemctl status expense_api.service
+
+4) systemctl enable expense_celery.service
+5) systemctl start expense_celery.service
+5) systemctl restart expense_celery.service
+6) systemctl status expense_celery.service
+6) systemctl enable nginx.service
+6) systemctl restart nginx.service
+
+
+systemctl restart expense_api.service
+systemctl stop expense_api.service
+
+
+systemctl restart expense_celery.service
+systemctl stop expense_celery.service
+
+1. comp -> github, gitlab, bitbucket -> server
+
+2. comp -> server
+
+
+
+scp file root@IP:/var/www
+python3 manage.py runserver 0:8004
+
+
+
+
+
+
+
+
+ufw:
+    sudo ufw status
+    sudo ufw allow 'Nginx HTTP'
+    sudo ufw allow 22
+    sudo ufw allow 80
+    sudo ufw allow 443
+    sudo ufw allow 8000
+    sudo ufw reload
+
+terminalda ishlatish kerak ohirida:
+    sudo nginx -t
+    ls -l /var/www/p25/dilshod/allauth/falcon.sock
+    sudo chown www-data:www-data /var/www/p25/dilshod/allauth/falcon.sock
+    sudo chmod 660 /var/www/p25/dilshod/allauth/falcon.sock
+
