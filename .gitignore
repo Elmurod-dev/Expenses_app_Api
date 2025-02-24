@@ -1,4 +1,10 @@
 .idea/
 .venv/
 db.sqlite3/
+.gitignore/
+media/
 apps/migrations/*
+authentication/migrations/*
+__pycache__/
+*.pyc
+*.pyo
