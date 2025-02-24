@@ -8,3 +8,4 @@ authentication/migrations/*
 __pycache__/
 *.pyc
 *.pyo
+expenses_api.rtf/
