@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db.models import Model, CharField, ForeignKey, SET_NULL, TextField, TextChoices, \
     ImageField, DateTimeField,DecimalField
-
+from django.db.models.fields import EmailField
 
 
 class CustomUserManager(UserManager):
@@ -34,10 +34,10 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
-    phone_number = CharField(max_length=20, unique=True)
+    email = EmailField(unique=True)
     objects = CustomUserManager()
-    USERNAME_FIELD = 'phone_number'
-    email=None
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     username = None
     first_name = None
     last_name = None

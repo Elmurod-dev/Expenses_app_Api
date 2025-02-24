@@ -8,21 +8,7 @@ from rest_framework.fields import CharField
 from rest_framework.fields import EmailField, IntegerField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import Serializer, ModelSerializer
-
 from apps.models import User, Expense, Category
-
-
-class RegisterSerializer(ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('full_name', 'phone_number', 'password')
-        extra_kwargs = {"password": {"write_only": True}}
-
-    def create(self, validated_data):
-        user = User(**validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
 
 
 

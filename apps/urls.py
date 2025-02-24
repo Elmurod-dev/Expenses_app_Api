@@ -1,21 +1,12 @@
 from django.urls import path
 
-from apps.views import RegisterApiview, ExpensesCreateApiview, ExpensesDeleteApiview, ExpensesUpdateApiview, \
+from apps.views import ExpensesCreateApiview, ExpensesDeleteApiview, ExpensesUpdateApiview, \
     ExpensesDetailApiView, ExpensesListApiView, BalanceApiview, CategoryTypeListApiView, CategoryListApiView, \
-    CategoryUpdateApiview,CategoryDeleteApiview
-from django.urls import path
-from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+    CategoryUpdateApiview, CategoryDeleteApiview
 from apps.views import ForgotPasswordAPIView, ForgotPasswordCheckAPIView, PasswordResetView, RegisterAPIView, \
     RegisterCheckAPIView
 
-urlpatterns = [
-    path("auth/register/",RegisterApiview.as_view()),
-]
-
-
-urlpatterns+=[
+urlpatterns=[
     path("expenses/", ExpensesCreateApiview.as_view()),
     path("expenses/delete/<int:pk>", ExpensesDeleteApiview.as_view()),
     path("expenses/update/<int:pk>", ExpensesUpdateApiview.as_view()),
