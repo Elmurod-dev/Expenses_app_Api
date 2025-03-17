@@ -7,7 +7,7 @@ project path : /var/www/elmurod/Expenses_app_Api
 0) python manage.py collectstatic
 
 1)
-    nano /etc/nginx/sites-available/expense_api
+    nano /etc/nginx/sites-available/expenses_app_api
 
     server {
         listen       8100;
@@ -30,10 +30,10 @@ project path : /var/www/elmurod/Expenses_app_Api
     }
 
 2)
-    ln -s /etc/nginx/sites-available/expense_api /etc/nginx/sites-enabled/
+    ln -s /etc/nginx/sites-available/expenses_app_api /etc/nginx/sites-enabled/
 
 
-3) nano /etc/systemd/system/expense_api.service
+3) nano /etc/systemd/system/expenses_app_api.service
 
 
 [Unit]
@@ -50,7 +50,7 @@ ExecStart=/var/www/elmurod/Expenses_app_Api/.venv/bin/gunicorn --workers 3 --bin
 WantedBy=multi-user.target
 
 
-3.1) nano /etc/systemd/system/expense_celery.service
+3.1) nano /etc/systemd/system/expense_app_celery.service
 
 [Unit]
 Description=Celery Service
@@ -68,15 +68,15 @@ Restart=always
 WantedBy=multi-user.target
 
 
-4) systemctl enable expense_api.service
-5) systemctl start expense_api.service
-5) systemctl restart expense_api.service
-6) systemctl status expense_api.service
+4) systemctl enable expenses_app_api.service
+5) systemctl start expenses_app_api.service
+5) systemctl restart expenses_app_api.service
+6) systemctl status expenses_app_api.service
 
-4) systemctl enable expense_celery.service
-5) systemctl start expense_celery.service
-5) systemctl restart expense_celery.service
-6) systemctl status expense_celery.service
+4) systemctl enable expense_app_celery.service
+5) systemctl start expense_app_celery.service
+5) systemctl restart expense_app_celery.service
+6) systemctl status expense_app_celery.service
 6) systemctl enable nginx.service
 6) systemctl restart nginx.service
 
